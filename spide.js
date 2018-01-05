@@ -9,6 +9,7 @@ module.exports = {
             let browser = await puppeteer.launch({
                 // executablePath:
                 // "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                // update this to your local chromium path
                 executablePath:
                     "/usr/bin/google-chrome",
                 headless: true,
