@@ -1,4 +1,6 @@
 const puppeteer = require("puppeteer");
+const request = require("request-promise");
+// const cheerio = require("cheerio");
 const { db, HashTableName } = require("./db");
 
 const __ = "OK";
@@ -54,10 +56,24 @@ module.exports = {
         } catch (error) {
             console.error("spideData5u error ", error);
         }
+    },
+    spide66ip: async () => {
+        let url =
+            "http://www.66ip.cn/nmtq.php?getnum=100&isp=0&anonymoustype=0&start=&ports=&export=&ipaddress=&area=0&proxytype=0&api=66ip";
+        let r = await request(url);
+        let exp = "<br />";
+        let proxys = r
+            .split(exp)
+            .map(item => "http://" + item.trim())
+            .slice(1, 100);
+        proxys.forEach(async p => {
+            await db.HSET(HashTableName, p, __);
+        });
+        return proxys;
     }
 };
 
-(async () => {
-    let r = await module.exports.spideData5u();
-    console.log(r);
-})();
+// (async () => {
+//     let r = await module.exports.spide66ip();
+//     console.log(r);
+// })();

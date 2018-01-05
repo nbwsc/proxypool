@@ -7,8 +7,8 @@ let _proxyArray = [];
 
 async function loop() {
     try {
-        let r = await spider.spideData5u();
-        console.log(r);
+        await spider.spide66ip();
+        // console.log(r);
         let proxys = await db.HKEYS(HashTableName);
         // sync check ip & kill dead ip
         for (let i = 0; i < proxys.length; i++) {
@@ -24,13 +24,14 @@ async function loop() {
 }
 
 async function check(p) {
+    console.log("testing ", p);
     for (let i = 0; i < checkMathod.length; i++) {
         if (!await checkMathod[i](p)) {
             db.HDEL(HashTableName, p);
             return false;
         }
     }
-
+    console.log("test pass ", p);
     return true;
 }
 
