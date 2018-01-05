@@ -1,0 +1,21 @@
+{
+    "name": "proxy_pool",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "kcors": "^2.2.1",
+        "koa": "^2.4.1",
+        "koa-bodyparser": "^4.2.0",
+        "koa-router": "^7.3.0",
+        "promise-redis": "0.0.5",
+        "puppeteer": "^0.13.0",
+        "request": "^2.83.0",
+        "request-promise": "^4.2.2"
+    }
+}
