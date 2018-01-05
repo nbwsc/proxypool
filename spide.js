@@ -11,9 +11,10 @@ module.exports = {
                 // "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
                 // update this to your local chromium path
                 executablePath:
-                    "/usr/bin/google-chrome",
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox']
+                    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+                // "/usr/bin/google-chrome",
+                headless: false,
+                args: ["--no-sandbox", "--disable-setuid-sandbox"]
             });
             const page = await browser.newPage();
 
@@ -49,13 +50,14 @@ module.exports = {
             list.forEach(async p => {
                 await db.HSET(HashTableName, p, __);
             });
+            return list;
         } catch (error) {
             console.error("spideData5u error ", error);
         }
     }
 };
 
-// (async () => {
-//     let r = await module.exports.spideData5u();
-//     console.log(r);
-// })();
+(async () => {
+    let r = await module.exports.spideData5u();
+    console.log(r);
+})();

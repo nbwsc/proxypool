@@ -7,14 +7,15 @@ let _proxyArray = [];
 
 async function loop() {
     try {
-        await spider.spideData5u();
-
+        let r = await spider.spideData5u();
+        console.log(r);
         let proxys = await db.HKEYS(HashTableName);
         // sync check ip & kill dead ip
         for (let i = 0; i < proxys.length; i++) {
             await check(proxys[i]);
         }
         _proxyArray = await db.HKEYS(HashTableName);
+        console.log("update finished");
     } catch (error) {
         console.error(error);
     } finally {
