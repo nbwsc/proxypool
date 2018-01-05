@@ -41,10 +41,9 @@ module.exports = [
         }
     }
 ];
-
 (async () => {
     let r = await request({
-        url: "",
+        url: "http://www.data5u.com/",
         headers: {
             Accept:
                 "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
@@ -58,4 +57,5 @@ module.exports = [
                 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.    36"
         }
     });
+	console.log(r)
 })();
