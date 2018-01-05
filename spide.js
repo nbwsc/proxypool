@@ -4,6 +4,14 @@ const request = require("request-promise");
 const { db, HashTableName } = require("./db");
 
 const __ = "OK";
+const _POOL_LEN = 100;
+
+async function insertDB(proxy, from) {
+    let len = await db.HLEN(HashTableName);
+    if (len <= _POOL_LEN) {
+        await db.HSET(HashTableName, proxy, from);
+    }
+}
 
 module.exports = {
     spideData5u: async function() {
@@ -50,7 +58,7 @@ module.exports = {
             await browser.close();
 
             list.forEach(async p => {
-                await db.HSET(HashTableName, p, __);
+                await insertDB(p, "data5u");
             });
             return list;
         } catch (error) {
@@ -66,9 +74,10 @@ module.exports = {
             .split(exp)
             .map(item => "http://" + item.trim())
             .slice(1, 100);
-        proxys.forEach(async p => {
-            await db.HSET(HashTableName, p, __);
-        });
+        for (let i = 0; i < proxys.length; ++i) {
+            await insertDB(proxys[i], "66ip");
+        }
+
         return proxys;
     }
 };

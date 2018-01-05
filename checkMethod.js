@@ -9,21 +9,21 @@ const _DefalutHead = {
 const _OriginIP = "202.85.220.36";
 
 module.exports = [
-    async proxy => {
-        try {
-            let r = await request({
-                url: "http://httpbin.org/ip",
-                method: "GET",
-                headers: _DefalutHead,
-                timeout: _Timeout,
-                proxy: proxy,
-                json: true
-            });
-            return r.origin.includes(proxy.match(/\/\/(.+)\:/)[1]);
-        } catch (error) {
-            return false;
-        }
-    },
+    // async proxy => {
+    //     try {
+    //         let r = await request({
+    //             url: "http://httpbin.org/ip",
+    //             method: "GET",
+    //             headers: _DefalutHead,
+    //             timeout: _Timeout,
+    //             proxy: proxy,
+    //             json: true
+    //         });
+    //         return r.origin.includes(proxy.match(/\/\/(.+)\:/)[1]);
+    //     } catch (error) {
+    //         return false;
+    //     }
+    // },
     async proxy => {
         try {
             let r = await request({

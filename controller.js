@@ -3,9 +3,10 @@ const { db, HashTableName } = require("./db");
 const spider = require("./spide");
 const checkMathod = require("./checkMethod");
 
-let _proxyArray = [];
+// let _proxyArray = [];
 
 async function loop() {
+    console.log(new Date(), "starting loop");
     try {
         await spider.spide66ip();
         // console.log(r);
@@ -14,7 +15,7 @@ async function loop() {
         for (let i = 0; i < proxys.length; i++) {
             await check(proxys[i]);
         }
-        _proxyArray = await db.HKEYS(HashTableName);
+        // _proxyArray = await db.HKEYS(HashTableName);
         console.log("update finished");
     } catch (error) {
         console.error(error);
@@ -24,19 +25,19 @@ async function loop() {
 }
 
 async function check(p) {
-    console.log("testing ", p);
     for (let i = 0; i < checkMathod.length; i++) {
         if (!await checkMathod[i](p)) {
             db.HDEL(HashTableName, p);
+            console.log("check fail", p);
             return false;
         }
     }
-    console.log("test pass ", p);
+    console.log("check ok", p);
     return true;
 }
 
 setTimeout(async () => {
-    _proxyArray = await db.HKEYS(HashTableName);
+    // _proxyArray = await db.HKEYS(HashTableName);
     await loop();
 }, 100);
 
@@ -47,9 +48,10 @@ module.exports = {
         ctx.body = "ok";
     },
     getAll: async ctx => {
-        ctx.body = _proxyArray;
+        ctx.body = await db.HKEYS(HashTableName);
     },
     getOne: async ctx => {
-        ctx.body = _proxyArray[~~(Math.random() * _proxyArray.length)];
+        let proxys = await db.HKEYS(HashTableName);
+        ctx.body = proxys[~~(Math.random() * proxys.length)];
     }
 };
