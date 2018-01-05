@@ -10,8 +10,9 @@ module.exports = {
                 // executablePath:
                 // "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
                 executablePath:
-                    "/Applications/Chromium.app/Contents/MacOS/Chromium",
-                headless: true
+                    "/usr/bin/google-chrome",
+                headless: true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox']
             });
             const page = await browser.newPage();
 
